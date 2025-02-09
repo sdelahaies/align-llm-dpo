@@ -1,13 +1,13 @@
 # Model arguments
-model_name_or_path: meta-llama/Llama-3.2-1B
-tokenizer_name_or_path: meta-llama/Llama-3.2-1B-Instruct
+model_name_or_path: meta-llama/Llama-3.2-3B
+tokenizer_name_or_path: meta-llama/Llama-3.2-3B-Instruct
 model_revision: main
 torch_dtype: bfloat16
 attn_implementation: flash_attention_2
 use_liger: true
 bf16: true
 tf32: true
-output_dir: runs/meta-llama/Llama-3.2-1B-math-orca-qlora-10k-ep1
+output_dir: runs/meta-llama/Llama-3.2-3B-math-orca-qlora-10k-ep1
  
 # Dataset arguments
 dataset_id_or_path: train_dataset.json
@@ -21,11 +21,11 @@ lora_target_modules: "all-linear"
 # important as we need to train the special tokens for the chat template of llama 
 lora_modules_to_save: ["lm_head", "embed_tokens"] # you might need to change this for qwen or other models
 lora_r: 16
-lora_alpha: 16
+lora_alpha: 32
  
 # Training arguments
-num_train_epochs: 3
-per_device_train_batch_size: 32
+num_train_epochs: 1
+per_device_train_batch_size: 16
 gradient_accumulation_steps: 4
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
