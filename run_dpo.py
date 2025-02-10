@@ -34,6 +34,8 @@ from trl import (
 
 from datasets import load_dataset
 
+from dotenv import load_dotenv
+hf_token = os.environ.get("HF_TOKEN")
 
 ########################
 # Custom dataclasses
@@ -105,6 +107,7 @@ def dpo_function(
         ),
         revision=model_args.model_revision,
         trust_remote_code=model_args.trust_remote_code,
+        token=hf_token
     )
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
@@ -174,7 +177,9 @@ def dpo_function(
 
     # Policy Model
     model = AutoModelForCausalLM.from_pretrained(
-        model_args.model_name_or_path, **model_kwargs
+        model_args.model_name_or_path,
+        token=hf_token,
+        **model_kwargs
     )
     # Checks wether we use adapters for reference model or not
     if peft_config is None:
